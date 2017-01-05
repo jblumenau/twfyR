@@ -122,4 +122,4 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 #test <- getDebates(type = "commons", person = 10001, num = 1000, complete_call = T)
 #str(test)
 
-getMP(id = 10001)
+#getMP(id = 10001)
