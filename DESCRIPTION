@@ -1,0 +1,18 @@
+Package: twfyR
+Type: Package
+Title: R binding for TheyWorkForYou.com API
+Version: 0.1.0
+Author: Jack Blumenau
+Maintainer: Jack Blumenau <j.blumenau@lse.ac.uk>
+Description: R binding for TheyWorkForYou.com API
+License: What license is it under?
+LazyData: TRUE
+RoxygenNote: 5.0.1
+Imports:
+    dplyr,
+    xml2,
+    plyr
+Depends:
+    dplyr,
+    xml2,
+    plyr
