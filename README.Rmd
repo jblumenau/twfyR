@@ -1,0 +1,87 @@
+---
+title: "twfyR"
+author: Jack Blumenau
+output: github_document
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "##",
+  fig.path = "images/"
+)
+```
+
+## About the package
+
+This package provides an R binding for the [TheyWorkForYou API](http://www.theyWorkForYou.com/api). This package is still in the very early stages of development. Use with caution.
+
+## How to install
+
+The package is currently only available on github.
+
+```{eval = F}
+library(devtools)
+install_github("jblumenau/twfyR")
+library(twfyR)
+```
+
+## Set your API key
+
+Use of the API is dependent on obtaining an API key from TheyWorkForYou. This is easily done [here](https://www.theyworkforyou.com/api/key).
+
+Before trying to get any data using the R functions in this package, you will need to use the `set_twfy_key()` function.
+
+```{r key_example, eval = F}
+my_key <- "api_key_from_twfy"
+set_twfy_key(my_key)
+```
+
+```{r key_example2, eval = T, message=FALSE, echo=FALSE}
+library(twfyR)
+set_twfy_key()
+```
+
+## Calling the API
+
+Calls to the twfy API are made via a series of `get` functions, such as `getMPs()` and `getDebates()`. Each of these functions takes a number of arguments to refine the results that are returned by the API. In each case, the function attempts to convert the XML data returned by the call into an R data object (normally a `data.frame` but sometimes a `list` (and sometimes even a `list` of `data.frames`)).
+
+Let's try getting the current MPs serving in parliament. This is the default output of the `getMPs()` function:
+
+```{r get_mps, eval = T, warning=FALSE, cache=TRUE}
+current_mps <- getMPs()
+
+str(current_mps)
+```
+
+The output is a list of 2 `data.frames`. The first is a data.frame with unique rows for each current MP. The second is a data.frame of each parliamentary position that each current member holds.
+
+Let's try retreiving the speeches of one member of parliament. We'll use the `getDebates()` function, and use `type = "commons"` to specify that we wish to see speeches made in the House of Commons, and `person = 10001` to choose our MP of interest (here it is [Dianne Abbott](https://www.theyworkforyou.com/mp/10001/diane_abbott/hackney_north_and_stoke_newington)).
+
+```{r get_debates, eval = T, warning=FALSE, cache=TRUE}
+speeches <- getDebates(person = 10001, type = "commons")
+
+class(speeches)
+
+dim(speeches)
+```
+
+The default behaviour of the `getDebates()` function is to return 1000 results. But if we wish to receive *all* the speeches ever made by a given person, we can set `complete_call = TRUE`. Note, however, that this specification will submit several requests to the twfy API, and is a quick way to use up your call allowance if done too often.
+
+Finally, let's do something with these speeches using the excellent [quanteda](https://github.com/kbenoit/quanteda) library.
+
+```{r wordcloud, eval = T, warning=FALSE, cache=TRUE, message=FALSE}
+library(quanteda)
+
+speech_corpus <- corpus(speeches$body)
+
+speech_dfm <- dfm(speech_corpus, remove = c("will", stopwords("english")),
+             removePunct = TRUE)
+
+speech_dfm <- dfm_trim(speech_dfm, max_count = 400, min_count = 10)
+
+speech_idf <- tfidf(speech_dfm)
+
+textplot_wordcloud(speech_idf, min.req = 10, random.order = FALSE, rot.per = .25, 
+                   colors = RColorBrewer::brewer.pal(8,"Dark2"))
+```
