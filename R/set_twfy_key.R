@@ -10,11 +10,7 @@
 #' set_twfy_key()
 #'
 #' @export
-set_twfy_key <- function(key, testing = T){
-  if(testing){
-    api_key <<- "C7uqpUDw3nH7BVfxNcAK4T8U"
-  }else{
-    api_key <<- key
-  }
+set_twfy_key <- function(key){
+  api_key <<- key
   message("Api key set.")
 }
