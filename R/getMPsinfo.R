@@ -44,7 +44,7 @@ getMPsinfo <- function(id = NA, fields = NA){
 
   out <- lapply(members, tmp_func)
   out <- out[!unlist(lapply(out, is.null))]
-head(out[[2]])
+
   names(out) <- id
   return(out)
 
