@@ -9,10 +9,10 @@ License: What license is it under?
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Imports:
+    plyr,
     dplyr,
-    xml2,
-    plyr
+    xml2
 Depends:
+    plyr,
     dplyr,
-    xml2,
-    plyr
+    xml2
