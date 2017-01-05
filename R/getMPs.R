@@ -17,7 +17,14 @@ getMPs <- function(date = NA, string = NA, party = NA){
   check_api_key()
 
   data <- get_generic("getMPs", search_date = date, search_string = string, search_party = party)
-
+  
+  if(length(xml_children(data)) == 0) {
+    warning("No data found for these parameter values.")
+    members <- NA
+    memberships <- NA
+    return(list(members = members, office = memberships))
+  }
+  
   member_ids <- xml_text(xml_find_all(xml_children(data),"member_id"))
   person_ids <- xml_text(xml_find_all(xml_children(data),"person_id"))
   mp_names <- xml_text(xml_find_all(xml_children(data),"name"))

@@ -57,3 +57,4 @@ get_generic <- function(call = "getMPs", search_date = NA, search_name = NA, sea
   }
 
 }
+

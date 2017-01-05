@@ -22,8 +22,8 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 
   # type = "commons"
   # date = NA#as.Date("2006-07-13")#NA
-  # search = "fish"
-  # person = NA#10001
+  # search = NA
+  # person = 99999
   # gid = NA
   # order = NA
   # page = NA
@@ -61,8 +61,10 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   if(complete_call){
 
     total_results <- as.numeric(xml_text(xml_find_all(data,"info/total_results")))
-
-    if(total_results > 1000) pages_to_search <- floor(total_results/1000) + 1
+    
+    if(total_results == 0) return(NA)
+    
+    pages_to_search <- floor(total_results/1000) + 1
     cat(paste0("Retreiving all the data for your search will require approximately ", pages_to_search," calls to the twfy API.\n"))
     cat(paste0("Call 1 complete.\n"))
     stop_looping <- F
