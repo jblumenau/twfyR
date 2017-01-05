@@ -8,6 +8,7 @@
 #'
 #' @export
 convert_dates <- function(x){
+  x <- gsub("00-00","01-01", x)
   x <- as.character(x)
   x <- as.Date(x)
   x[grep("9999", x)] <- Sys.Date()

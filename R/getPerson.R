@@ -13,7 +13,7 @@
 getPerson <- function(id_person = NA){
 
   check_api_key()
-
+  
   if(is.na(id_person)) stop("No id provided.")
 
   mp_data <- get_generic(call = "getPerson", search_id = id_person)
