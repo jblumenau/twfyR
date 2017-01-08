@@ -24,7 +24,12 @@
 #' @export
 
 get_generic <- function(call = "getMPs", search_date = NA, search_name = NA, search_postcode = NA, search_party = NA, search_string = NA, search_id = NA, search_constituency = NA, search_always_return = NA, search_fields = NA, search_gid = NA, search_order = NA, search_page = NA, search_num = NA, search_type = NA, search_person = NA, return_url = F){
-
+  # func_args_global(get_generic)
+  # call = "getDebates"
+  # search_type = "commons"
+  # search_person = 10168
+  # search_num = 1000
+  # search_page = 2
   args <- data.frame(date = search_date, name = search_name,
                      postcode = search_postcode, party = search_party,
                      search = search_string, id = search_id, constituency = search_constituency,
@@ -48,13 +53,16 @@ get_generic <- function(call = "getMPs", search_date = NA, search_name = NA, sea
 
   uri_call <- paste0(uri_call, "&key=", api_key)
   last_api_call <<- uri_call
-  data <- xml2::read_xml(uri_call)
 
   if(return_url){
+    
     return(uri_call)
+    
   }else{
+    
+    data <- xml2::read_xml(uri_call)
     return(data)
+    
   }
 
 }
-

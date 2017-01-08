@@ -4,7 +4,7 @@
 \alias{set_twfy_key}
 \title{set_twfy_key}
 \usage{
-set_twfy_key(key, testing = T)
+set_twfy_key(key)
 }
 \arguments{
 \item{key}{users TheyWorkForYou API key}

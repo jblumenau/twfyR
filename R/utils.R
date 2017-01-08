@@ -117,3 +117,14 @@ clean_texts_fun <- function(string) {
 #'
 #' @export
 trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+
+#' func_args_global
+#'
+#' Function to take a function and set the default arguments of the function as objects in the global environment for testing. Don't use this unless you wrote this horrible code.
+#'
+#' @return A bunch of R objects
+#'
+#' @export
+func_args_global <- function(func){
+  lapply(1:length(formals(func)), function(x) assign(names(formals(func))[x], formals(func)[[x]], pos = .GlobalEnv))
+}

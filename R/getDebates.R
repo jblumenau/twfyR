@@ -19,14 +19,9 @@
 #'
 #' @export
 getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA, order = NA, page = NA, num = 1000, complete_call = F){
-
+  # func_args_global(getDebates)
   # type = "commons"
-  # date = NA#as.Date("2006-07-13")#NA
-  # search = NA
-  # person = 99999
-  # gid = NA
-  # order = NA
-  # page = NA
+  # person = 10001
   # num = 1000
   # complete_call = T
 
@@ -48,21 +43,26 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 
   date <- convert_dates_r_to_twfy(date)
 
-  data <- get_generic("getDebates", search_type = type,
+  xml_data <- try(get_generic("getDebates", search_type = type,
                       search_date = date, search_string = search,
                       search_person = person, search_gid = gid,
                       search_order = order, search_page = page,
-                      search_num = num, return_url = F)
-
+                      search_num = num, return_url = F), silent = T)
 
   data_page_list <- list()
-  data_page_list[[1]] <- data
+  data_page_list[[1]] <- xml_data
 
   if(complete_call){
 
-    total_results <- as.numeric(xml_text(xml_find_all(data,"info/total_results")))
+    if(!"try-error" %in% class(xml_data)) {
+      
+      total_results <- as.numeric(xml_text(xml_find_all(xml_data,"info/total_results")))
     
     if(total_results == 0) return(NA)
+    
+    } else{
+        total_results <- 3000
+      }
     
     pages_to_search <- floor(total_results/1000) + 1
     cat(paste0("Retreiving all the data for your search will require approximately ", pages_to_search," calls to the twfy API.\n"))
@@ -72,12 +72,18 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
     while(!stop_looping){
     i <- i + 1
 
-      data_page_list[[i]] <- get_generic("getDebates", search_type = type,
+      data_page_list[[i]] <- try(get_generic("getDebates", search_type = type,
                         search_date = date, search_string = search,
                         search_person = person, search_gid = gid,
                         search_order = order, search_page = i,
-                        search_num = num, return_url = F)
-
+                        search_num = num, return_url = F), silent = T)
+      
+      if("try-error" %in% class(data_page_list[[i]])) {
+        cat(paste0("Error calling the following url: ", last_api_call,"\n"))
+        cat(paste0("Skipping to next call.\n"))
+        next
+      }
+      
       if(length(xml_find_all(data_page_list[[i]], initial_root))==0) stop_looping <- T
 
       if(!stop_looping) cat(paste0("Call ", i," complete.\n"))
@@ -87,6 +93,10 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 
   }
 
+  # Remove any output which inherited a try error
+  data_page_list <- data_page_list[!unlist(lapply(data_page_list, function(x) "try-error" %in% class(x)))]
+  
+  
   out_list <- list()
   for(doc in 1:length(data_page_list)){
 
@@ -125,3 +135,5 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 #str(test)
 
 #getMP(id = 10001)
+
+#test <- getDebates(type = "commons", person = 10168, complete_call = T)
