@@ -12,10 +12,6 @@
 #'
 #' @export
 
-#id <- c(24709,10131)
-#fields <- "public_whip_dreammp6707_absent,public_whip_dreammp6708_both_voted"
-#fields <- NA
-
 getMPsinfo <- function(id = NA, fields = NA){
 
   check_api_key()
@@ -49,6 +45,3 @@ getMPsinfo <- function(id = NA, fields = NA){
   return(out)
 
 }
-
-# test <- getMPs()
-# test2 <-  getMPsinfo(id = c(24709,10131, 11771, 10069))

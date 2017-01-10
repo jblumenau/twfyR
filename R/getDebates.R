@@ -20,11 +20,7 @@
 #' @export
 getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA, order = NA, page = NA, num = 1000, complete_call = F){
   # func_args_global(getDebates)
-  # type = "commons"
-  # person = 10001
-  # num = 1000
-  # complete_call = T
-
+  
   check_api_key()
 
   if(is.na(type)) stop("'type' parameter cannot be missing. Must be one of 'commons', 'westminsterhall', 'lords', or 'northernireland'.")
@@ -129,11 +125,3 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 
   return(out)
 }
-
-#test <- getDebates(type = "commons", search = "fish", num = 1000, complete_call = T)
-#test <- getDebates(type = "commons", person = 10001, num = 1000, complete_call = T)
-#str(test)
-
-#getMP(id = 10001)
-
-#test <- getDebates(type = "commons", person = 10168, complete_call = T)

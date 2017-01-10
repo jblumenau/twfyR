@@ -17,10 +17,6 @@ getMP <- function(postcode = NA, constituency = NA, id = NA, always_return = NA)
 
   check_api_key()
 
-  # postcode <- "SG75NS"
-# constituency = NA
-# id = NA
-# always_return = NA
   data <- get_generic("getMP", search_postcode = postcode, search_constituency = constituency, search_id = id, search_always_return = always_return)
 
   getMP_details <- function(x){
@@ -59,8 +55,3 @@ getMP <- function(postcode = NA, constituency = NA, id = NA, always_return = NA)
 
   return(out)
 }
-
-
-#getMP(id = 10131)
-#tmp <- getMPs()
-#tmp$members[grep("Cooper",tmp$members$name),]
