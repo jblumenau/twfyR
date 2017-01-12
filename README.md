@@ -2,6 +2,28 @@ twfyR
 ================
 Jack Blumenau
 
+    ## Loading required package: plyr
+
+    ## Loading required package: dplyr
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:plyr':
+    ## 
+    ##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+    ##     summarize
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+    ## Loading required package: xml2
+
 About the package
 -----------------
 
@@ -33,7 +55,9 @@ set_twfy_key(my_key)
 Calling the API
 ---------------
 
-Calls to the twfy API are made via a series of `get` functions, such as `getMPs()` and `getDebates()`. Each of these functions takes a number of arguments to refine the results that are returned by the API. In each case, the function attempts to convert the XML data returned by the call into an R data object (normally a `data.frame` but sometimes a `list` (and sometimes even a `list` of `data.frames`)).
+Calls to the twfy API are made via a series of `get` functions, such as `getMPs()` and `getDebates()`. Note that currently the package is incomplete in various ways, the most notable of which is that it does not yet include bindings for all of the calls made available by TWFY. Hopefully these will be added in the not-too-distant future...
+
+Each of these functions takes a number of arguments to refine the results that are returned by the API. In each case, the function attempts to convert the XML data returned by the call into an R data object (normally a `data.frame` but sometimes a `list` (and sometimes even a `list` of `data.frames`)).
 
 Let's try getting the current MPs serving in parliament. This is the default output of the `getMPs()` function:
 

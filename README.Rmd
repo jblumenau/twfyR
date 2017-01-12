@@ -10,6 +10,7 @@ knitr::opts_chunk$set(
   comment = "##",
   fig.path = "images/"
 )
+library(twfyR)
 ```
 
 ## About the package
@@ -38,13 +39,15 @@ set_twfy_key(my_key)
 ```
 
 ```{r key_example2, eval = T, message=FALSE, echo=FALSE}
-library(twfyR)
-set_twfy_key()
+my_key <- "api_key_from_twfy"
+set_twfy_key(my_key)
 ```
 
 ## Calling the API
 
-Calls to the twfy API are made via a series of `get` functions, such as `getMPs()` and `getDebates()`. Each of these functions takes a number of arguments to refine the results that are returned by the API. In each case, the function attempts to convert the XML data returned by the call into an R data object (normally a `data.frame` but sometimes a `list` (and sometimes even a `list` of `data.frames`)).
+Calls to the twfy API are made via a series of `get` functions, such as `getMPs()` and `getDebates()`. Note that currently the package is incomplete in various ways, the most notable of which is that it does not yet include bindings for all of the calls made available by TWFY. Hopefully these will be added in the not-too-distant future...
+
+Each of these functions takes a number of arguments to refine the results that are returned by the API. In each case, the function attempts to convert the XML data returned by the call into an R data object (normally a `data.frame` but sometimes a `list` (and sometimes even a `list` of `data.frames`)).
 
 Let's try getting the current MPs serving in parliament. This is the default output of the `getMPs()` function:
 
