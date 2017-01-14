@@ -11,8 +11,10 @@ RoxygenNote: 5.0.1
 Imports:
     plyr,
     dplyr,
-    xml2
+    xml2,
+    rgdal
 Depends:
     plyr,
     dplyr,
-    xml2
+    xml2,
+    rgdal

@@ -4,7 +4,7 @@ author: Jack Blumenau
 output: github_document
 ---
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "##",
