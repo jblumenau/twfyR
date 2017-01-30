@@ -5,6 +5,7 @@
 #' Returns the bounding polygon of the constituency, in KML format (see mapit.mysociety.org for other formats, past constituency boundaries, and so on).
 #'
 #' @param name Name of the constituency.
+#' @param plot_boundary Produce a (very) rudimentary plot of the constituency boundary.
 #'
 #' @return A SpatialPolygonsDataFrame from rgdal::readOGR
 #'

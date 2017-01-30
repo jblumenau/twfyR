@@ -8,6 +8,8 @@ getBoundary(name = NA, plot_boundary = F)
 }
 \arguments{
 \item{name}{Name of the constituency.}
+
+\item{plot_boundary}{Produce a (very) rudimentary plot of the constituency boundary.}
 }
 \value{
 A SpatialPolygonsDataFrame from rgdal::readOGR
