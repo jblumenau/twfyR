@@ -35,7 +35,7 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   xpath_search <- c("gid","hdate","htime", "section_id", "subsection_id", "htype", "major", "minor",
                     "person_id", "hpos", "video_status", "epobject_id", "body", "collapsed", "relevance", "extract", "listurl",
                     "speaker/member_id", "speaker/name", "speaker/house", "speaker/constituency", "speaker/party", "speaker/url",
-                    "speaker/office/match/dept", "speaker/office/match/position", "speaker/office/match/source", "speaker/office/match/pretty")
+                    "speaker/office/match/dept", "speaker/office/match/position", "speaker/office/match/source", "speaker/office/match/pretty", "parent/body")
 
   date <- convert_dates_r_to_twfy(date)
 
@@ -122,6 +122,10 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   out$hdate <- as.Date(out$hdate)
   out$body <- clean_texts_fun(out$body)
   out$extract <- clean_texts_fun(out$extract)
-
+  out$body.1 <- gsub(" &#8212;"," -", out$body.1)
+  
+  names(out)[grep("body.1",names(out))] <- "parent"
+  
   return(out)
 }
+
