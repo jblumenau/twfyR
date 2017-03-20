@@ -122,8 +122,8 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 
   out$hdate <- as.Date(out$hdate)
   out$body <- clean_texts_fun(out$body)
-  out$extract <- clean_texts_fun(out$extract)
-  out$body.1 <- gsub(" &#8212;"," -", out$body.1)
+  if(!is.null(out$extract)) out$extract <- clean_texts_fun(out$extract)
+  if(!is.null(out$body.1)) out$body.1 <- gsub(" &#8212;"," -", out$body.1)
   
   names(out)[grep("body.1",names(out))] <- "parent"
   
