@@ -20,7 +20,8 @@
 #' @export
 getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA, order = NA, page = NA, num = 1000, complete_call = F){
   # func_args_global(getDebates)
-  
+  # gid = "2017-02-01a.1030.0"
+  # type = "commons"
   check_api_key()
 
   if(is.na(type)) stop("'type' parameter cannot be missing. Must be one of 'commons', 'westminsterhall', 'lords', or 'northernireland'.")
@@ -30,7 +31,7 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   if(!is.na(person)) initial_root <- "rows/match"
   if(!is.na(date)) initial_root <- "match/entry"
   if(!is.na(search)) initial_root <- "rows/match"
-  if(!is.na(gid)) initial_root <- "rows/match"
+  if(!is.na(gid)) initial_root <- "match"
 
   xpath_search <- c("gid","hdate","htime", "section_id", "subsection_id", "htype", "major", "minor",
                     "person_id", "hpos", "video_status", "epobject_id", "body", "collapsed", "relevance", "extract", "listurl",
@@ -95,7 +96,7 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   
   out_list <- list()
   for(doc in 1:length(data_page_list)){
-
+    
     tmp_data <- xml_find_all(data_page_list[[doc]], initial_root)
 
     tmp_out <- lapply(xpath_search, function(x) {
