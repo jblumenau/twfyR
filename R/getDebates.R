@@ -24,7 +24,8 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 
   if(is.na(type)) stop("'type' parameter cannot be missing. Must be one of 'commons', 'westminsterhall', 'lords', or 'northernireland'.")
   if(sum(!is.na(c(date,search,person, gid))) > 1) stop("You can only supply one of 'date', 'search', 'person', or 'gid' at present. See https://www.theyworkforyou.com/api/docs/getDebates for more information.")
-
+  if(complete_call & !is.na(date)) error("Cannot set complete_call = TRUE when using date paramter.")
+    
   if(!is.na(person)) initial_root <- "rows/match"
   if(!is.na(date)) initial_root <- "match"
   if(!is.na(search)) initial_root <- "rows/match"
@@ -47,10 +48,7 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   data_page_list[[1]] <- xml_data
 
   if(!is.na(date)){
-    if(complete_call){
-    warning("Cannot set complete_call = TRUE when using date paramter.")
-    complete_call <- F
-    }
+    
     gids <- xml_text(xml_find_all(data_page_list[[1]],"//gid"))
     
     tmp_date <- NA
@@ -119,7 +117,6 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
     tmp_data <- xml_find_all(data_page_list[[doc]], initial_root)
 
     tmp_out <- lapply(xpath_search, function(x) {
-    # x <- xpath_search[1]
       tmp <- xml_find_first(tmp_data, x)
       var <- as.character(na.omit(unique(xml_name(tmp))))
       val <- xml_text(tmp)
@@ -130,12 +127,21 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 
   out_list[[doc]] <- data.frame(do.call("cbind", tmp_out), stringsAsFactors = F)
 
+  # Add debate titles for gid and date searches
+  
+  if(!is.na(gid)|!is.na(date)){
+    out_list[[doc]]$body.1 <- out_list[[doc]]$body[out_list[[doc]]$section_id == 0]  
+  }
+  
   # Remove variables for which no results were returned
   out_list[[doc]] <- out_list[[doc]][,!grepl("NA",names(out_list[[doc]]))]
-
+  
+  
+  
   }
-
+  
   out <- rbind.fill(out_list)
+
   
   ## Remove anything that isn't a speech
   

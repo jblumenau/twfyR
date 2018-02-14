@@ -24,10 +24,7 @@
 #' @export
 
 get_generic <- function(call = "getMPs", search_date = NA, search_name = NA, search_postcode = NA, search_party = NA, search_string = NA, search_id = NA, search_constituency = NA, search_always_return = NA, search_fields = NA, search_gid = NA, search_order = NA, search_page = NA, search_num = NA, search_type = NA, search_person = NA, return_url = F){
-  # func_args_global(get_generic)
-  # call = "getDebates"
-  # search_date <- "2018-02-02"
-  # search_type <- "commons"
+  
   args <- data.frame(date = search_date, name = search_name,
                      postcode = search_postcode, party = search_party,
                      search = search_string, id = search_id, constituency = search_constituency,
