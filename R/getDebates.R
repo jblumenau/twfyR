@@ -19,7 +19,10 @@
 #'
 #' @export
 getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA, order = NA, page = NA, num = 1000, complete_call = F){
-  
+  func_args_global("getDebates")
+  date = "2018-02-01"
+  type = "commons"
+  complete_call = F
   check_api_key()
 
   if(is.na(type)) stop("'type' parameter cannot be missing. Must be one of 'commons', 'westminsterhall', 'lords', or 'northernireland'.")
@@ -155,6 +158,7 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   if(!is.null(out$body.1)) out$body.1 <- gsub(" &#8212;"," -", out$body.1)
   
   names(out)[grep("body.1",names(out))] <- "parent"
+  out <- out[!apply(out,1,function(x) all(is.na(x))),]
   
   return(out)
 }
