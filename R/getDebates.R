@@ -3,7 +3,7 @@
 #' Fetch Debates (including Oral Questions).
 #'
 #' @param type One of "commons", "westminsterhall", "lords", "scotland", or "northernireland". (required)
-#' @param date Fetch the debates for this date. (Currently not working!!)
+#' @param date Fetch the debates for this date. 
 #' @param search Fetch the debates that contain this term.
 #' @param person Fetch the debates by a particular person ID.
 #' @param gid Fetch the speech or debate that matches this GID.
@@ -19,17 +19,14 @@
 #'
 #' @export
 getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA, order = NA, page = NA, num = 1000, complete_call = F){
-  # func_args_global(getDebates)
-  # gid = "2017-02-01a.1030.0"
-  # type = "commons"
+  
   check_api_key()
 
   if(is.na(type)) stop("'type' parameter cannot be missing. Must be one of 'commons', 'westminsterhall', 'lords', or 'northernireland'.")
-  if(!is.na(date)) stop("'Date' paramenter is currently not working.")
   if(sum(!is.na(c(date,search,person, gid))) > 1) stop("You can only supply one of 'date', 'search', 'person', or 'gid' at present. See https://www.theyworkforyou.com/api/docs/getDebates for more information.")
 
   if(!is.na(person)) initial_root <- "rows/match"
-  if(!is.na(date)) initial_root <- "match/entry"
+  if(!is.na(date)) initial_root <- "match"
   if(!is.na(search)) initial_root <- "rows/match"
   if(!is.na(gid)) initial_root <- "match"
 
@@ -49,6 +46,28 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   data_page_list <- list()
   data_page_list[[1]] <- xml_data
 
+  if(!is.na(date)){
+    if(complete_call){
+    warning("Cannot set complete_call = TRUE when using date paramter.")
+    complete_call <- F
+    }
+    gids <- xml_text(xml_find_all(data_page_list[[1]],"//gid"))
+    
+    tmp_date <- NA
+    
+    gid_list <- list()
+    for(gid in 1:length(gids)){
+      gid_list[[gid]] <- try(get_generic("getDebates", search_type = type,
+                                        search_date = tmp_date, search_string = search,
+                                        search_person = person, search_gid = gids[gid],
+                                        search_order = order, search_page = page,
+                                        search_num = num, return_url = F), silent = T)
+    }
+    
+    data_page_list <- gid_list
+  }
+  
+  
   if(complete_call){
 
     if(!"try-error" %in% class(xml_data)) {
@@ -89,7 +108,7 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
 
 
   }
-
+  
   # Remove any output which inherited a try error
   data_page_list <- data_page_list[!unlist(lapply(data_page_list, function(x) "try-error" %in% class(x)))]
   
@@ -117,7 +136,11 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   }
 
   out <- rbind.fill(out_list)
-
+  
+  ## Remove anything that isn't a speech
+  
+  out <- out[out$person_id != 0,]
+  
   ## Clean the data a little
 
   out$hdate <- as.Date(out$hdate)
