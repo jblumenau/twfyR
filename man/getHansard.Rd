@@ -30,4 +30,3 @@ Fetch all Hansard. Note you can only supply one of 'search' or 'person' paramete
 getHansard()
 
 }
-

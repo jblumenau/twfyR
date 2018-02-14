@@ -19,4 +19,3 @@ Sets the value of the TheyWorkForYou API key to be used with all other twfyR fun
 set_twfy_key()
 
 }
-

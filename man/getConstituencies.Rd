@@ -21,4 +21,3 @@ Fetch a list of UK Parliament constituencies. Note: only one argument can be giv
 getConstituencies()
 
 }
-

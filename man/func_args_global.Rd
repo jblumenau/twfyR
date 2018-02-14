@@ -12,4 +12,3 @@ A bunch of R objects
 \description{
 Function to take a function and set the default arguments of the function as objects in the global environment for testing. Don't use this unless you wrote this horrible code.
 }
-

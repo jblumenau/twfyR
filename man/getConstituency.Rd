@@ -21,4 +21,3 @@ Fetch a UK Parliament constituency.
 getConstituency()
 
 }
-

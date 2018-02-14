@@ -21,4 +21,3 @@ Fetch extra information for a particular person.
 getMPs()
 
 }
-

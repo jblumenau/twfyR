@@ -12,4 +12,3 @@ Trimmed string
 \description{
 Trim leading and trailing whitespace from a character vector
 }
-

@@ -23,4 +23,3 @@ constituency_names <- getConstituencies()
 getGeometry(constituency_names[1])
 
 }
-

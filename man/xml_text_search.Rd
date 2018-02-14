@@ -17,4 +17,3 @@ character vector
 \description{
 Generic function to find elements in XML
 }
-

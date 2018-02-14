@@ -15,4 +15,3 @@ R date object
 \description{
 Generic function to convert TWFY dates to R dates
 }
-

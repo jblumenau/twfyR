@@ -19,4 +19,3 @@ Fetch a particular person.
 getPerson(10001)
 
 }
-

@@ -23,4 +23,3 @@ Fetch a list of MPs.
 getMPs()
 
 }
-

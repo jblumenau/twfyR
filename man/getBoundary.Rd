@@ -24,4 +24,3 @@ Returns the bounding polygon of the constituency, in KML format (see mapit.mysoc
 getBoundary("Hornsey and Wood Green", plot_boundary = T)
 
 }
-

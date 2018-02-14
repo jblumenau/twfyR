@@ -10,7 +10,7 @@ getDebates(type = NA, date = NA, search = NA, person = NA, gid = NA,
 \arguments{
 \item{type}{One of "commons", "westminsterhall", "lords", "scotland", or "northernireland". (required)}
 
-\item{date}{Fetch the debates for this date. (Currently not working!!)}
+\item{date}{Fetch the debates for this date.}
 
 \item{search}{Fetch the debates that contain this term.}
 
@@ -36,4 +36,3 @@ Fetch Debates (including Oral Questions).
 getDebates()
 
 }
-

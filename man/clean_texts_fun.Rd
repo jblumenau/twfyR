@@ -12,4 +12,3 @@ Clean speech string
 \description{
 Generic function to clean up a speech string (remove html elements, etc)
 }
-

@@ -50,4 +50,3 @@ XML data returned from TheyWorkForYou.
 \description{
 Generic function to build a TheyWorkForYou url and call in the XML data. For internal use in twfyR only. I wouldn't bother using this directly.
 }
-

@@ -15,4 +15,3 @@ Character object
 \description{
 Generic function to convert R dates to twfy dates
 }
-

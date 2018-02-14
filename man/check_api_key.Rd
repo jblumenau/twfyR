@@ -12,4 +12,3 @@ Error message if api_key is absent
 \description{
 Generic function to check that the user has supplied an API key for twfy
 }
-
