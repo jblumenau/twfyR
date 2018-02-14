@@ -19,10 +19,7 @@
 #'
 #' @export
 getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA, order = NA, page = NA, num = 1000, complete_call = F){
-  func_args_global("getDebates")
-  date = "2018-02-01"
-  type = "commons"
-  complete_call = F
+  
   check_api_key()
 
   if(is.na(type)) stop("'type' parameter cannot be missing. Must be one of 'commons', 'westminsterhall', 'lords', or 'northernireland'.")
