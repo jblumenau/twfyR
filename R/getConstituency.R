@@ -15,6 +15,8 @@ getConstituency <- function(postcode = NA, name = NA){
 
   check_api_key()
 
+  name <- gsub(" ","+",name)
+  
   data <- get_generic("getConstituency", search_postcode = postcode, search_name = name)
   out <- data.frame(t(xml_text(xml_children(data))))
   names(out) <- xml_name(xml_children(data))
