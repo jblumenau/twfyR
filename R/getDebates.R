@@ -11,6 +11,7 @@
 #' @param page (optional, when using search or person) Page of results to return.
 #' @param num (optional, when using search or person) Number of results to return (maximum and default is 1000).
 #' @param complete_call The twfy API will only seemingly return 1000 results per call. Setting this parameter to TRUE will iterate over the page parameter until all results are collected. Warning: this is a quick way to use up your API call allowance.
+#' @param exact If `TRUE`, the `search` parameter value will not be stemmed. Only texts using the exact word/phrase specified will be returned.
 #'
 #' @return data.frame of debates
 #'
