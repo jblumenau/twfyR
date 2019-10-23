@@ -12,11 +12,9 @@ Imports:
     plyr,
     dplyr,
     xml2,
-    rgdal,
     ggplot2
 Depends:
     plyr,
     dplyr,
     xml2,
-    rgdal,
     ggplot2

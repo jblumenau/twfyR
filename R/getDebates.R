@@ -18,7 +18,7 @@
 #' getDebates()
 #'
 #' @export
-getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA, order = NA, page = NA, num = 1000, complete_call = F){
+getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA, order = NA, page = NA, num = 1000, complete_call = F, exact = FALSE){
   
   check_api_key()
 
@@ -31,6 +31,10 @@ getDebates <- function(type = NA, date = NA, search = NA, person = NA, gid = NA,
   if(!is.na(search)) initial_root <- "rows/match"
   if(!is.na(gid)) initial_root <- "match"
 
+  # Adapt search string to account for exact searches
+  
+  if(exact) search <- paste0("%22",search,"%22")
+  
   xpath_search <- c("gid","hdate","htime", "section_id", "subsection_id", "htype", "major", "minor",
                     "person_id", "hpos", "video_status", "epobject_id", "body", "collapsed", "relevance", "extract", "listurl",
                     "speaker/member_id", "speaker/name", "speaker/house", "speaker/constituency", "speaker/party", "speaker/url",
